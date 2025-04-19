@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import ImageSlideshow from '@/components/Images/image-slideshow'
 import classes from './page.module.css'
+
 export default function Home() {
   return (
     <>
@@ -16,7 +17,7 @@ export default function Home() {
           </div>
           <div className={classes.cta}>
             <Link href='/community'>Join The Community</Link>
-            <Link href='/meals'>Explore Meals</Link>
+            <Link href='/meals' >Explore Meals</Link>
           </div>
         </div>
       </header>
