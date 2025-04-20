@@ -1,7 +1,7 @@
 export default function MealsLayout({children}){
     return (
         <>
-            <p>This is the layout of the meals "meals wrapper"</p>
+            {/* <p>This is the layout of the meals "meals wrapper"</p> */}
             {children}
         </>
     )
