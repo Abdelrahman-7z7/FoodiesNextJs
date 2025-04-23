@@ -1,11 +1,22 @@
 import Link from 'next/link'
-import classes from './page.module.css'
+import { Suspense } from 'react';
 
+import classes from './page.module.css'
 import MealsGrid from '@/components/meals/meal-grid'
 import { getMeals } from '@/lib/meals'
 
-export default async function MealsPage(){
+async function Meals(){
     const meals = await getMeals();
+
+    return (
+        <>    
+            {/* we are setting the meals array to empty till we fill it with something later */}
+            <MealsGrid meals={meals}></MealsGrid>
+        </>
+    )
+}
+
+export default function MealsPage(){
 
     return(
         <>
@@ -24,8 +35,14 @@ export default async function MealsPage(){
                 </p>
             </header>
             <main className={classes.main}>
-                {/* we are setting the meals array to empty till we fill it with something later */}
-                <MealsGrid meals={meals}></MealsGrid>
+                {/* suspense is a react components provided for handling loading state */}
+                <Suspense fallback={
+                    <p className={classes.loading}>
+                        Fetching Meals...
+                    </p>
+                }>
+                    <Meals/>
+                </Suspense>
             </main>
         </>
     )
