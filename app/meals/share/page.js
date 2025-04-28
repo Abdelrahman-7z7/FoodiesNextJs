@@ -1,11 +1,18 @@
+'use client';
+
 import ImagePicker from '@/components/meals/image-picker';
 import classes from './page.module.css';
 import { shareMeal } from '@/lib/actions';
 
 import MealsFormSubmit from '@/components/meals/meal-form-submit';
+import { useFormState } from 'react-dom';
+// import {useFormStatus } from 'react-dom';
 
 
 export default function ShareMealPage() {
+
+    //we add the shareMeal to handle server actions but this action might have an error, so to handle that error we can use useFormState hook, and use it instead of the shareMeal action
+    const [state, formAction] = useFormState(shareMeal, {message: null})
 
   return (
     <>
@@ -16,7 +23,7 @@ export default function ShareMealPage() {
         <p>Or any other meal you feel needs sharing!</p>
       </header>
       <main className={classes.main}>
-        <form className={classes.form} action={shareMeal}>
+        <form className={classes.form} action={formAction}>
           <div className={classes.row}>
             <p>
               <label htmlFor="name">Your name</label>
@@ -46,6 +53,9 @@ export default function ShareMealPage() {
           </p>
           {/* we must sit the right name and label for the image to be used later in the fromData */}
           <ImagePicker label="Your image" name="image"></ImagePicker>
+          {
+            state.message && <p>{state.message}</p>
+          }
           <p className={classes.actions}>
             <MealsFormSubmit/>
           </p>
